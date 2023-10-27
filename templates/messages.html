@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='msgs_styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+    <title>Messaging</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div><a href="/dashboard" class="logo">Thinkrr</a></div>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <div class="menu" id="menu">
+            <a href="/dashboard">Home</a>
+            <a href="/question_and_answer">Student Q/A</a>
+            <a href="/messages">Chats</a>
+            <a href="/profile">Profile</a>
+        </div>
+    </nav>
+    <div class="message-container" id="messages">
+        <ul id="message-list">
+            {% for message in messages %}
+                <li class="{{ 'sender' if message.sender_id == current_user_id else 'receiver' }}">
+                    {{ message.timestamp }} - {% if message.sender_id == current_user_id %} You {% else %} {{ message.sender_username }} {% endif %}: {{ message.content }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="message-form">
+        <form method="POST">
+            <div class="form-group">
+                <label for="recipient">Friends</label>
+                <select id="recipient" name="recipient">
+                    {% for user in users %}
+                        <option value="{{ user.id }}">{{ user.username }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="content">Your Message:</label>
+                <input type="text" placeholder="Say hi!" id="content" name="content" required>
+            </div>
+            <button class="btn-primary" type="submit">Send Message</button>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+            socket.on('connect', function () {
+                console.log('Connected to Socket.IO server');
+            });
+
+            var messageList = document.getElementById('message-list');
+            var recipientSelect = document.getElementById('recipient');
+            var contentInput = document.getElementById('content');
+
+            function updateMessageList(recipientId) {
+                fetch('/api/messages/' + recipientId)
+                    .then(response => response.json())
+                    .then(data => {
+                        messageList.innerHTML = '';
+
+                        data.messages.forEach(function (message) {
+                            var li = document.createElement('li');
+                            li.className = message.sender_id == current_user_id ? 'sender' : 'receiver';
+                            li.textContent = message.timestamp + ' - ' + (message.sender_id == current_user_id ? 'You' : message.sender_username) + ': ' + message.content;
+                            messageList.appendChild(li);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching messages:', error);
+                    });
+            }
+
+            recipientSelect.addEventListener('change', function () {
+                var recipientId = this.value;
+                socket.emit('join', { room: recipientId });
+                updateMessageList(recipientId);
+            });
+
+            document.querySelector('.message-form form').addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                var messageContent = contentInput.value;
+                var recipientId = recipientSelect.value;
+
+                if (messageContent.trim() !== '') {
+                    fetch('/api/send_message/' + recipientId, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            content: messageContent,
+                        }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Message sent successfully:', data);
+                            contentInput.value = '';
+
+                            var li = document.createElement('li');
+                            li.className = data.sender_id == current_user_id ? 'sender' : 'receiver';
+                            li.textContent = (data.sender_id == current_user_id ? 'You' : data.sender_username) + ': ' + data.content + data.timestamp;
+                            messageList.appendChild(li);
+                        })
+                        .catch(error => {
+                            console.error('Error sending message:', error);
+                        });
+                }
+            });
+
+            socket.on('message', function (data) {
+    var isSender = data.sender_id === parseInt(recipientSelect.value);
+    var messageContainer = document.createElement('div');
+    messageContainer.className = isSender ? 'message sender' : 'message receiver';
+
+
+    var usernameDiv = document.createElement('div');
+    usernameDiv.style.color = isSender ? '#241571' : '#007BA7';
+    usernameDiv.style.fontWeight = 'medium' ;
+    usernameDiv.textContent = data.sender_username;
+
+    var messageText = document.createElement('span');
+    messageText.textContent = data.content;
+
+    var timestampText = document.createElement('small');
+    timestampText.textContent = data.timestamp;
+    timestampText.style.color = 'gray';
+
+    messageContainer.appendChild(usernameDiv);
+    messageContainer.appendChild(document.createElement('br'));
+    messageContainer.appendChild(messageText);
+    messageContainer.appendChild(document.createElement('br'));
+    messageContainer.appendChild(timestampText);
+
+    messageList.appendChild(messageContainer);
+});
+
+        });
+    </script>
+</body>
+
+</html>

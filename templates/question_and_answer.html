@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='qa_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar_styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+    <title>Question & Answer</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.min.js"></script>
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        socket.on('new_question', function(data) {
+            var questionId = data.question_id;
+            var questionContent = data.question_content;
+            var questionList = document.querySelector('ul');
+
+
+            var questionItem = document.createElement('li');
+            questionItem.innerHTML = '<strong class="qauthor">' + data.username + ':</strong> ' + data.question_content;
+            
+
+            questionList.appendChild(questionItem);
+        });
+
+        socket.on('new_answer', function(data) {
+            var questionId = data.question_id;
+            var answerContent = data.answer_content;
+            var answerList = document.querySelector('ul li[data-question-id="' + questionId + '"] ul');
+
+            var answerItem = document.createElement('li');
+            answerItem.innerHTML = '<strong class="aauthor">' + data.username + ':</strong> ' + data.answer_content;
+            
+
+            answerList.appendChild(answerItem);
+        });
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <div><a href="/dashboard" class="logo">Thinkrr</a></div>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <div class="menu" id="menu">
+            <a href="/dashboard">Home</a>
+            <a href="/question_and_answer">Student Q/A</a>
+            <a href="/messages">Chats</a>
+            <a href="/profile">Profile</a>
+        </div>
+    </nav>
+    <script>
+        var mobileMenuButton = document.getElementById('mobile-menu');
+        var menu = document.getElementById('menu');
+
+        mobileMenuButton.addEventListener('click', function() {
+            menu.classList.toggle('active');
+        });
+    </script>
+    <div class="container">
+        <h1>Question & Answer Page</h1>
+
+        <h2>Questions</h2>
+        <ul>
+            {% for question in questions %}
+            <li data-question-id="{{ question.id }}">
+                <strong class="qauthor">{{ question.author.username }}:</strong> {{ question.content }}
+                <ul>
+                    {% for answer in question.answers %}
+                    <li><strong class="aauthor">{{ answer.author.username }}:</strong> {{ answer.content }}</li>
+                    {% endfor %}
+                </ul>
+                <form action="/answer/{{ question.id }}" method="post">
+                    {{ answer_form.hidden_tag() }}
+                    <label for="answer">Your Answer:</label>
+                    <input type="text" id="answer" name="content" required>
+                    <button type="submit">Answer This Question</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+    <div id="ask-question-btn" style="font-size: small; text-align: center;">Post a Question</div>
+
+
+    <div id="fixed-question-input">
+        <h2>Ask a Question</h2>
+        <form action="/question_and_answer" method="post">
+            <label for="question">Your Question:</label>
+            <input type="text" id="question" name="content" required>
+            <button type="submit">Ask</button>
+        </form>
+    </div>
+
+    <script>
+        var askQuestionBtn = document.getElementById('ask-question-btn');
+        var popup = document.getElementById('fixed-question-input');
+
+        askQuestionBtn.addEventListener('click', function() {
+            popup.style.display = (popup.style.display === 'none' || popup.style.display === '') ? 'block' : 'none';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align:center;
+    background-color: #404267;
+    padding: 10px 20px;
+}
+
+.logo {
+    color: #E4E4Ef;
+    font-size: 24px;
+    font-family: 'Sacramento', cursive;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.bar {
+    background-color: #E4E4Ef;
+    height: 3px;
+    width: 25px;
+    margin: 3px 0;
+}
+
+.menu {
+    position:fixed;
+    right: 50px;
+    display: flex;
+    gap: 35px;
+    text-align: center;
+    align-items: center;
+}
+
+a {
+    text-decoration-line: none;
+    font-family: 'Quicksand', sans-serif;
+    color: #E4E4Ef;
+}
+
+@media screen and (max-width: 768px) {
+    .menu {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: flex;
+        position:fixed;
+        right: 30px;
+    }
+
+    .menu.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 50px;
+        text-align: center;
+        background-color: #404267;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #E4E4Ef;
+    }
+
+    .menu.active a {
+        color: #E4E4Ef;
+        text-decoration: none;
+        margin: 5px 0;
+    }
+}

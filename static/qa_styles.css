@@ -1,0 +1,135 @@
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: #E4E4Ef;
+    margin: 0;
+    padding: 0;
+    color:#E4E4Ef;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    background-color: #404267;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+li {
+    margin-bottom: 10px;
+}
+form {
+    margin-top: 10px;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+input[type="text"] {
+    width: 50%;
+    max-width: 50%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+}
+button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+}
+button:hover {
+    background-color: #45a049;
+}
+.qauthor{
+    color:chocolate;
+    font-family: 'Quicksand', sans-serif;
+}
+.aauthor {
+    color:#4caf50;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.container {
+    width: 80%;
+    margin-top: 80px;
+}
+
+#ask-question-btn {
+    position: fixed;
+    top: 644px;
+    padding: 15px 30px;
+    max-width: 40px;
+    border: 1px solid #E4E4Ef;
+    border-radius: 60px; /* Rounded corners for an exciting look */
+    background-color: #404267; /* Button background color */
+    color: #E4E4Ef; /* Text color */
+    cursor: pointer;
+    z-index: 1000;
+    transition: background-color 0.3s ease; /* Smooth transition effect */
+}
+
+#ask-question-btn:hover {
+    background-color: #070524; /* Darker background color on hover */
+}
+
+#fixed-question-input {
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    background-color: #E4E4Ef;
+    padding: 20px;
+    border: 1px solid #404267;
+    z-index: 999;
+    color:#404267;
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+    /* Transform input to sidebar */
+    #fixed-question-input {
+        display: block;
+        position: fixed;
+        top: 0;
+        right: -250px; /* Sidebar starts off-screen */
+        width: 250px;
+        height: 100%;
+        background-color: #E4E4Ef;
+        box-shadow: -2px 0px 5px 0px rgba(0, 0, 0, 0.2);
+        transition: right 0.3s ease; /* Add transition effect */
+        z-index: 999;
+        padding: 20px;
+    }
+
+    /* Button to toggle the sidebar */
+    #ask-question-btn {
+        position: fixed;
+        top: 649px;
+        left: 20px;
+        cursor: pointer;
+    }
+
+    /* Adjust main content to make space for the sidebar */
+    .container {
+        margin-right: 270px; /* Adjust this value based on the sidebar width */
+        font-family: 'Quicksand', sans-serif;
+    }
+}
+

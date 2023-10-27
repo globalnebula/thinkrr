@@ -1,0 +1,191 @@
+body {
+    font-family: 'Quicksand', sans-serif;
+    background-color:#404267;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #E4E4EF;
+    color: #404267;
+    padding: 146px;
+    border-radius: 86px;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.show-password-icon input[type="checkbox"] {
+    display: none; /* Hide the actual checkbox */
+    
+}
+
+img {
+    margin-top: -50px;
+    margin-bottom: 19px;
+    margin-left: 181px;
+    margin-right: 10px;
+}
+
+.login-msg {
+    margin-top: -50px;
+    margin-bottom: 19px;
+    margin-left: 220px;
+    margin-right: 10px;
+}
+
+.show-password-icon label img {
+    cursor: pointer;
+    /* Add more styles as needed */
+}
+
+h2 {
+    margin-top: -123px;
+    margin-bottom: 25px;
+    color: #404267;
+    font-family: 'Sacramento', cursive;
+    font-size: 80px;
+    font-weight: bolder;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.custom-cursor {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #FF5733;
+    mix-blend-mode: difference;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+    z-index: 9999;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 80%;
+    padding: 8px;
+    background-color: #404267;
+    text-align: center;
+    color: #E4E4EF;
+    font-size: 16px;
+    border: 1px solid #404267;
+    border-radius: 88px;
+    margin-top: 10px;
+}
+
+input[type="submit"] {
+    background-color: #404267;
+    color: #E4E4EF;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    margin-top: 20px;
+}
+
+input[type="submit"]:hover {
+    background-color: #F07B7B;
+}
+
+p {
+    margin-top: 45px;
+    margin-bottom: -75px;
+}
+
+.error-message {
+    color: red;
+}
+
+.login-msg {
+    color: green;
+}
+
+.heading{
+    font-family: 'Sacramento', cursive;
+    font-size: 100px;
+    margin-top: -11px;
+    margin-bottom: -10px;
+    margin-left: -174px;
+    padding: 69px;
+    color:#E4E4EF;
+    text-decoration: none;
+    text-decoration-line: none;
+}
+
+/* Media Query for Smaller Screens */
+@media screen and (max-width: 768px) {
+    body {
+        font-family: 'Quicksand', sans-serif;
+        background-color: #404267;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    
+    .container {
+        background-color: #E4E4EF;
+        color: #404267;
+        padding: 60px; /* Reduced padding for smaller screens */
+        border-radius: 30px; /* Reduced border-radius for smaller screens */
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        font-family: 'Quicksand', sans-serif;
+    }
+    
+    h2 {
+        margin-top: -40px; /* Reduced margin-top for smaller screens */
+        margin-bottom: 40px; /* Reduced margin-bottom for smaller screens */
+        font-size: 40px; /* Reduced font size for smaller screens */
+    }
+    
+    input[type="text"],
+    input[type="password"] {
+        width: 80%; /* Full width for smaller screens */
+        padding: 10px; /* Reduced padding for smaller screens */
+        font-size: 14px; /* Reduced font size for smaller screens */
+    }
+    
+    input[type="submit"] {
+        width: 100%; /* Full width for smaller screens */
+        margin-top: 10px; /* Adjusted margin-top for smaller screens */
+        border-radius: 8px;
+        width: 90px;
+        text-align: center;
+        text-indent: -4%;
+    }
+    p {
+        margin-top: 1px;
+        margin-bottom: -46px;
+    }
+
+    .heading{
+        font-family: 'Sacramento', cursive;
+        font-size: 50px;
+        margin-top: -238px;
+        margin-bottom: 402px;
+        margin-left: 6vh;
+        margin-right: -47vh;
+        padding: 69px;
+        color:#E4E4EF;
+        text-decoration: none;
+        text-decoration-line: none;
+    }
+}

@@ -1,0 +1,83 @@
+body {
+    background-color: #404267;
+    font-family: 'Gruppo', sans-serif;
+    }
+
+.heading{
+    font-family: 'Sacramento', cursive;
+    font-size: 100px;
+    margin-top: -11px;
+    margin-bottom: -206px;
+    margin-left: 530px;
+    padding: 69px;
+    color:#E4E4EF;
+    text-decoration: none;
+    text-decoration-line: none;
+}
+
+.my-name{
+    font-family: 'Sacramento', cursive;
+}
+
+footer {
+    background-color: #343a40;
+    color: #E4E4EF; 
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+#login-btn, #signup-btn {
+    padding: 2vh 5vw;
+    text-align: center;
+    margin-right: 76px;
+    margin-left: 271px;
+    display: inline-block;
+}
+
+.jumbo{
+    margin-top: -37px;
+    margin-bottom: 50px;
+}
+
+#Jumbocarousel {
+    padding: 50px;
+    border-radius: 30px;
+    background-color: #E4E4EF;
+    color: #404267;
+    text-align: center;
+    width: 90%;
+}
+
+@media screen and (max-width: 768px) {
+
+    #login-btn,#signup-btn{
+        margin-right: 1vh;
+        margin-left: 5vh;
+        align-self: center;
+        display: inline-block;
+    }
+
+    .carousel-caption h1,
+    .carousel-caption p {
+        font-size: 18px;
+    }
+
+    .carousel-item {
+        width: 90%;
+    }
+
+    .heading{
+        font-family: 'Sacramento', cursive;
+        font-size: 82px;
+        margin-top: -11px;
+        margin-bottom: -206px;
+        margin-left: 6vh;
+        padding: 69px;
+        color:#E4E4EF;
+        text-decoration: none;
+        text-decoration-line: none;
+    }
+}

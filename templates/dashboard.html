@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Carousel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard_styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div><a href="/dashboard" class="logo">Thinkrr</a></div>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <div class="menu" id="menu">
+            <a href="/dashboard">Home</a>
+            <a href="/question_and_answer">Student Q/A</a>
+            <a href="/messages">Chats</a>
+            <a href="/profile">Profile</a>
+        </div>
+    </nav>
+    <script>
+        var mobileMenuButton = document.getElementById('mobile-menu');
+        var menu = document.getElementById('menu');
+
+        mobileMenuButton.addEventListener('click', function() {
+            menu.classList.toggle('active');
+        });
+    </script>
+
+    <div class="internships">Internships & Jobs</div>
+    <div class="jobs-part">
+        {% for job in jobs_data %}
+            <div class="job-card">
+                <h2>{{ job.job }}</h2>
+                <p>Company: {{ job.company }}</p>
+                <p>Location: {{ job.location }}</p>
+                <p>Posted: {{ job.time }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

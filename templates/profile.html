@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='navbar_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile_styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div><a href="/dashboard" class="logo">Thinkrr</a></div>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <div class="menu" id="menu">
+            <a href="/dashboard">Home</a>
+            <a href="/question_and_answer">Student Q/A</a>
+            <a href="/messages">Chats</a>
+            <a href="/profile">Profile</a>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        <h1>Welcome, <span id="this-user">{{ this_user }}</span></h1>
+        <div class="user-details" id="user-details">
+            <p>Email: <span id="email"></span></p>
+            <p>Full Name: <span id="fullname"></span></p>
+            <p>Bio: <span id="bio"></span></p>
+        </div>
+        <form id="profile-form" style="display: none;">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email-input" required>
+            </div>
+            <div class="form-group">
+                <label for="fullname">Full Name:</label>
+                <input type="text" id="fullname-input" required>
+            </div>
+            <div class="form-group">
+                <label for="bio">Bio:</label>
+                <textarea id="bio-input"></textarea>
+            </div>
+            <button type="submit">Update Profile</button>
+        </form>
+        <button class="editbtn" id="edit-profile-btn">Edit Profile</button>
+
+
+    </div>
+
+    <script>
+        var emailSpan = document.getElementById('email');
+        var fullnameSpan = document.getElementById('fullname');
+        var bioSpan = document.getElementById('bio');
+        var emailInput = document.getElementById('email-input');
+        var fullnameInput = document.getElementById('fullname-input');
+        var bioInput = document.getElementById('bio-input');
+        var profileForm = document.getElementById('profile-form');
+        var editProfileBtn = document.getElementById('edit-profile-btn');
+        
+
+function fetchProfileData() {
+    fetch('/get_profile_data')
+    .then(response => response.json())
+    .then(data => {
+        updateProfileUI(data.email, data.fullname, data.bio);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+
+    });
+}
+
+window.addEventListener('load', fetchProfileData);
+
+
+
+        function updateProfileUI(email, fullname, bio) {
+            emailSpan.textContent = email;
+            fullnameSpan.textContent = fullname;
+            bioSpan.textContent = bio;
+            emailInput.value = email;
+            fullnameInput.value = fullname;
+            bioInput.value = bio;
+        }
+
+
+profileForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    var email = emailInput.value;
+    var fullname = fullnameInput.value;
+    var bio = bioInput.value;
+
+    fetch('/update_profile', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            email: email,
+            fullname: fullname,
+            bio: bio
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+
+        updateProfileUI(data.email, data.fullname, data.bio);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+
+    });
+});
+
+        editProfileBtn.addEventListener('click', function() {
+            editProfileBtn.style.display = 'none';
+            profileForm.style.display = 'block';
+        });
+    </script>
+
+    <button id="logout-btn" class="logout" onclick="window.location.href='/logout'">Logout</button>
+</body>
+
+</html>

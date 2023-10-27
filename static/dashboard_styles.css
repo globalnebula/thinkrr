@@ -1,0 +1,40 @@
+body {
+    background-color: #e4e4ef;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.internships {
+    color: #404267;
+    margin-top: 25vh;
+    margin-left: 1vw;
+    font-size: 24px;
+}
+
+.jobs-part{
+    margin-top: 11vh;
+}
+
+.job-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: calc(33.3333% - 30px);
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    display: inline-block; /* Display the job cards inline */
+}
+
+@media (min-width: 768px) {
+    .job-card {
+        width: calc(50% - 40px); /* Two cards per row with 20px margin on each side */
+        margin: 15px; /* Adjust the margin as per your design */
+    }
+}
+
+@media (min-width: 992px) {
+    .job-card {
+        width: calc(33.3333% - 40px); /* Three cards per row with 20px margin on each side */
+    }
+}
