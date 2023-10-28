@@ -50,14 +50,14 @@ class User(db.Model):
     password = db.Column(db.String(120), nullable=False)
     fullname = db.Column(db.String(120), nullable=True)
     bio = db.Column(db.Text, nullable=True)
-
+```
     id: Unique identifier for each user.
     username: User's unique username.
     email: User's email address.
     password: Hashed password for security.
     fullname: User's full name.
     bio: User's biography or description.
-```
+
 Routes and Views
 Example: Registration Route
 
@@ -71,11 +71,11 @@ def signup():
         # ... (registration logic)
         return redirect(url_for('login'))
     return render_template('signup.html')
-
-    This route handles both GET and POST requests for user registration.
-    If the request method is POST, it retrieves form data and processes the registration logic.
-    After successful registration, redirects the user to the login page.
 ```
+This route handles both GET and POST requests for user registration.
+If the request method is POST, it retrieves form data and processes the registration logic.
+After successful registration, redirects the user to the login page.
+
 
 Socket.IO Integration
 Example: Handling Socket.IO Events
@@ -90,8 +90,8 @@ def handle_connect():
         user = User.query.filter_by(id=user_id).first()
         emit('connected', {'message': 'Connected to server.', 'username': user.username})
 ```
-    This Socket.IO event occurs when a client connects to the server.
-    It verifies the user's identity and emits a 'connected' event with a welcome message and the user's username.
+This Socket.IO event occurs when a client connects to the server.
+It verifies the user's identity and emits a 'connected' event with a welcome message and the user's username.
 
 Security Measures
 Example: Password Hashing
@@ -102,8 +102,8 @@ hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
 new_user = User(username=username, password=hashed_password)
 ```
 
-    The generate_password_hash function securely hashes the user's password before storing it in the database.
-    This ensures that passwords are not stored in plaintext, enhancing security.
+The generate_password_hash function securely hashes the user's password before storing it in the database.
+This ensures that passwords are not stored in plaintext, enhancing security.
 
 Conclusion
 
