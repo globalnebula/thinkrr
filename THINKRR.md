@@ -28,9 +28,13 @@ Thinkrr relies on several Python libraries and frameworks:
 ## File Structure
 project-folder/
 ├── app.py
+
 ├── models.py
+
 ├── forms.py
+
 ├── templates/
+
 ├── static/
 
 
@@ -51,12 +55,12 @@ class User(db.Model):
     fullname = db.Column(db.String(120), nullable=True)
     bio = db.Column(db.Text, nullable=True)
 ```
-    id: Unique identifier for each user.
-    username: User's unique username.
-    email: User's email address.
-    password: Hashed password for security.
-    fullname: User's full name.
-    bio: User's biography or description.
+id: Unique identifier for each user.
+username: User's unique username.
+email: User's email address.
+password: Hashed password for security.
+fullname: User's full name.
+bio: User's biography or description.
 
 Routes and Views
 Example: Registration Route
