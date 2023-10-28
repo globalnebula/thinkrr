@@ -27,14 +27,11 @@ Thinkrr relies on several Python libraries and frameworks:
 
 ## File Structure
 project-folder/
+
 ├── app.py
-
 ├── models.py
-
 ├── forms.py
-
 ├── templates/
-
 ├── static/
 
 
