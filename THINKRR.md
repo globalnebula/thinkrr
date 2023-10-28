@@ -29,9 +29,13 @@ Thinkrr relies on several Python libraries and frameworks:
 project-folder/
 
 ├── app.py
+
 ├── models.py
+
 ├── forms.py
+
 ├── templates/
+
 ├── static/
 
 
