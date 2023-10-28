@@ -13,6 +13,7 @@ from datetime import datetime
 from flask_cors import CORS
 from flask_socketio import leave_room
 from flask_migrate import Migrate
+from flask_talisman import Talisman
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///kunal.db"
@@ -21,6 +22,33 @@ app.config['SESSION_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_SAMESITE'] = 'None'
 app.config['SESSION_COOKIE_NAME'] = 'ctexti'
 app.config['PERMANENT_SESSION_LIFETIME'] = 86400
+
+
+csp = {
+    'default-src': [
+        '\'self\'',
+        'https://cdnjs.cloudflare.com',
+    ],
+    'script-src': [
+        '\'self\'',
+        'https://cdnjs.cloudflare.com',
+        'https://cdn.jsdelivr.net',
+    ],
+    'style-src': [
+        '\'self\'',
+        'https://fonts.googleapis.com',
+    ],
+    'font-src': [
+        '\'self\'',
+        'https://fonts.gstatic.com',
+    ],
+    'connect-src': [
+        '\'self\'',
+        'https://fonts.googleapis.com',
+        'https://fonts.gstatic.com', 
+    ],
+}
+
 
 db = SQLAlchemy(app)
 CORS(app)
@@ -414,4 +442,5 @@ def index():
     return render_template('index.html')
 
 if __name__ == "__main__":
-    socketio.run(app, debug=True, port=2005)
+    socketio.run(app, host='0.0.0.0', port=2005)
+

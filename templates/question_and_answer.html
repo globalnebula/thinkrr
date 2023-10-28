@@ -13,7 +13,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.min.js"></script>
     <script>
-        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        var socket = io.connect();
+        //var socket = io.connect('http://' + document.domain + ':' + location.port);
 
         socket.on('new_question', function(data) {
             var questionId = data.question_id;
